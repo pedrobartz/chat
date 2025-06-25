@@ -32,22 +32,19 @@
         var input = document.getElementById('input');
         var messages = document.getElementById('messages');
 
-        // Ação para enviar mensagem
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Impede o recarregamento da página
+            e.preventDefault(); 
             if (input.value) {
-                // Emite um evento 'message_from_client' para o servidor
+               
                 socket.emit('message_from_client', { 'msg': nickname + ': ' + input.value });
-                input.value = ''; // Limpa o campo de texto
+                input.value = ''; 
             }
         });
 
-        // Ouve por mensagens vindas do servidor
         socket.on('message_to_clients', function(data) {
             var item = document.createElement('li');
             item.textContent = data.msg;
             messages.appendChild(item);
-            // Rola a janela de chat para a última mensagem
             messages.scrollTop = messages.scrollHeight;
         });
     </script>
